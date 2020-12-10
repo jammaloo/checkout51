@@ -40,7 +40,9 @@ class OfferSeeder extends Seeder
                 $offer->image_url = $offer_entry['image_url'] ?? null;
                 $offer->cash_back = $offer_entry['cash_back'] ?? 0;
 
-                //Simple validation
+                // Simple validation
+                // In  a real application, this would be offloaded to a separate class
+                // As the data source may come from many different locations, not just a single JSON file
                 if (is_null($offer->id) || !is_int($offer->id)) {
                     throw new \InvalidArgumentException("Offer ID is missing or invalid");
                 }
@@ -62,7 +64,11 @@ class OfferSeeder extends Seeder
     }
 
     /**
-     * @return mixed
+     * Load and parse the offers seed file.
+     *
+     * Returns the seed file contents as an associative array
+     *
+     * @return array
      */
     private function loadOffersFile() {
         // Load in offers seed file
