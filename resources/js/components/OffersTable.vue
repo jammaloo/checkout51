@@ -4,7 +4,10 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <datatable :columns="columns" :data="rows"></datatable>
+                        <datatable :columns="columns" :data="fetchOffers" :per-page="perPage"></datatable>
+                    </div>
+                    <div class="card-footer">
+                        <datatable-pager v-model="page"></datatable-pager>
                     </div>
                 </div>
             </div>
@@ -15,7 +18,6 @@
 <script>
 export default {
     mounted() {
-        console.log('Component mounted.')
     },
     data() {
         return {
@@ -34,25 +36,36 @@ export default {
                     interpolate: false,
                 },
             ],
-            rows: [
-                //...
-                {
-                    "id": "40408",
-                    "name": "Buy 2: Select TRISCUIT Crackers",
-                    "image_url": "https://d3bx4ud3idzsqf.cloudfront.net/public/production/6840/67561_1535141624.jpg",
-                    "cash_back": 100
-                }
-                //...
-            ]
+            rows: [],
+            page: 1,
+            perPage: 20,
         }
     },
     methods: {
+        // Convert cents to dollars
         formatCurrency(cents) {
             const formatter = new Intl.NumberFormat('en-CA', {
                 style: 'currency',
                 currency: 'CAD',
             });
             return formatter.format(cents / 100);
+        },
+        // Retrieve list of offers
+        async fetchOffers( { sortBy, sortDir, perPage, page }) {
+
+            const apiQuery = "sortBy=" + encodeURIComponent(sortBy) + "&sortDir=" + encodeURIComponent(sortDir) + "&page=" + encodeURIComponent(page);
+
+            const {
+                // Data to display
+                data,
+            } = await axios.get( `/api/offers?${apiQuery}` );
+
+            this.perPage = data.offers.per_page;
+
+            return {
+                rows:          data.offers.data,
+                totalRowCount: data.offers.total,
+            };
         },
     },
 }

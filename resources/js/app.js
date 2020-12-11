@@ -20,7 +20,7 @@ const files = require.context('./', true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 import { VuejsDatatableFactory } from 'vuejs-datatable';
-Vue.use( VuejsDatatableFactory);
+Vue.use(VuejsDatatableFactory);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
