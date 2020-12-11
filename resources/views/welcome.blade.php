@@ -17,6 +17,39 @@
         <style>
             body {
                 font-family: 'Nunito';
+                color: #FFFFFF;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                padding: 10px;
+            }
+            table thead tr {
+                background: #424B5A;
+                font-size: 1.2em;
+            }
+            table th, table td {
+                padding: 10px;
+            }
+            table tr:nth-child(even) {
+                background: #424B5A;
+            }
+            table thead th {
+                white-space: nowrap;
+            }
+            nav ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            nav ul li {
+                display: inline-block;
+                font-size: 1.5em;
+                text-decoration: underline;
+                margin-right: 15px;
+            }
+            nav ul li.active {
+                color: #424B5A;
             }
         </style>
     </head>
@@ -28,7 +61,7 @@
                 </div>
 
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-                    <div class="grid grid-cols-1 md:grid-cols-2">
+                    <div class="grid grid-cols-1 md:grid-cols-1">
                         <div class="p-6" id="app">
                             <offers-table></offers-table>
                         </div>

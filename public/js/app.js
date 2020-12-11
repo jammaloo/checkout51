@@ -1978,6 +1978,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {},
   data: function data() {
@@ -1992,15 +1998,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         field: 'name',
         headerClass: 'class-in-header second-class'
       }, {
-        label: 'Image URL',
-        field: 'image_url'
-      }, {
         label: 'Image',
         representedAs: function representedAs(_ref) {
           var image_url = _ref.image_url;
           return "<img src=\"".concat(image_url, "\">");
         },
-        interpolate: true
+        interpolate: true,
+        sortable: false
       }, {
         label: 'Cash Back',
         representedAs: function representedAs(_ref2) {
@@ -38803,28 +38807,56 @@ var render = function() {
             { staticClass: "card-body" },
             [
               _c("datatable", {
+                staticClass: "table-auto",
                 attrs: {
                   columns: _vm.columns,
                   data: _vm.fetchOffers,
                   "per-page": _vm.perPage
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-footer" },
-            [
-              _c("datatable-pager", {
-                model: {
-                  value: _vm.page,
-                  callback: function($$v) {
-                    _vm.page = $$v
-                  },
-                  expression: "page"
-                }
+                },
+                scopedSlots: _vm._u([
+                  {
+                    key: "footer",
+                    fn: function(ref) {
+                      var pagination = ref.pagination
+                      return [
+                        _c("tr", [
+                          _c(
+                            "td",
+                            { attrs: { colspan: 2 } },
+                            [
+                              _c("datatable-pager", {
+                                model: {
+                                  value: _vm.page,
+                                  callback: function($$v) {
+                                    _vm.page = $$v
+                                  },
+                                  expression: "page"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { attrs: { colspan: _vm.columns.length - 2 } },
+                            [
+                              _vm._v(
+                                "Showing rows " +
+                                  _vm._s(pagination.from) +
+                                  " to " +
+                                  _vm._s(pagination.to) +
+                                  " of " +
+                                  _vm._s(pagination.of) +
+                                  " offers."
+                              )
+                            ]
+                          )
+                        ])
+                      ]
+                    }
+                  }
+                ])
               })
             ],
             1

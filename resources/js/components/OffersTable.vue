@@ -4,10 +4,16 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <datatable :columns="columns" :data="fetchOffers" :per-page="perPage"></datatable>
-                    </div>
-                    <div class="card-footer">
-                        <datatable-pager v-model="page"></datatable-pager>
+                        <datatable class="table-auto" :columns="columns" :data="fetchOffers" :per-page="perPage">
+                            <template v-slot:footer="{ pagination }">
+                                <tr>
+                                    <td :colspan="2">
+                                        <datatable-pager v-model="page"></datatable-pager>
+                                    </td>
+                                    <td :colspan="columns.length - 2">Showing rows {{pagination.from}} to {{pagination.to}} of {{pagination.of}} offers.</td>
+                                </tr>
+                            </template>
+                        </datatable>
                     </div>
                 </div>
             </div>
@@ -24,11 +30,11 @@ export default {
             columns: [
                 {label: 'Offer ID', field: 'id'},
                 {label: 'Name', field: 'name', headerClass: 'class-in-header second-class'},
-                {label: 'Image URL', field: 'image_url'},
                 {
                     label: 'Image',
                     representedAs: ({image_url}) => `<img src="${image_url}">`,
                     interpolate: true,
+                    sortable: false,
                 },
                 {
                     label: 'Cash Back',
