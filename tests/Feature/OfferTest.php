@@ -20,7 +20,8 @@ class OfferTest extends TestCase
 
         $empty_response
             ->assertStatus(200)
-            ->assertJsonCount(0, 'offers');
+            ->assertJsonCount(0, 'offers.data')
+            ->assertJsonPath('offers.total', 0);
     }
 
     /**
@@ -30,12 +31,14 @@ class OfferTest extends TestCase
      */
     public function testOffersListPopulated()
     {
-        // Create three Offers instances...
-        \App\Models\Offer::factory()->count(5)->create();
+        $offer_count = 5;
+        // Create some Offer instances...
+        \App\Models\Offer::factory()->count($offer_count)->create();
 
         $populated_response = $this->get('/api/offers');
         $populated_response
             ->assertStatus(200)
-            ->assertJsonCount(5, 'offers');
+            ->assertJsonCount($offer_count, 'offers.data')
+            ->assertJsonPath('offers.total', $offer_count);
     }
 }
