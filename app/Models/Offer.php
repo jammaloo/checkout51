@@ -22,4 +22,11 @@ class Offer extends Model
         'image_url',
         'cash_back',
     ];
+
+    public static $sortable = [
+        'batch_id',
+        'name',
+        'image_url',
+        'cash_back',
+    ];
 }

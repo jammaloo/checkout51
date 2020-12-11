@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Offer;
+use App\Traits\Listable;
 use Illuminate\Http\Request;
 
 class OfferController extends Controller
 {
-    public function list(): \Illuminate\Http\JsonResponse
+    use Listable;
+    public function list(Request $request): \Illuminate\Http\JsonResponse
     {
         return response()->json([
-            'offers' => \App\Models\Offer::paginate(20),
+            'offers' => $this->listModels(Offer::class, $request),
         ]);
     }
 }
