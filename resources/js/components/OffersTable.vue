@@ -38,6 +38,7 @@ export default {
                 },
                 {
                     label: 'Cash Back',
+                    field: 'cash_back',
                     representedAs: ({cash_back}) => `${this.formatCurrency(cash_back)}`,
                     interpolate: false,
                 },

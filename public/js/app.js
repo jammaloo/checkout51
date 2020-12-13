@@ -2007,6 +2007,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         sortable: false
       }, {
         label: 'Cash Back',
+        field: 'cash_back',
         representedAs: function representedAs(_ref2) {
           var cash_back = _ref2.cash_back;
           return "".concat(_this.formatCurrency(cash_back));
